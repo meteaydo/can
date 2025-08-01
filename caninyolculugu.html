@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebek Gelişimi - 6 Aylık İnfografiği</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .timeline {
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #74b9ff, #fd79a8, #fdcb6e);
+            transform: translateX(-50%);
+        }
+
+        .milestone {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+            align-items: center;
+        }
+
+        .milestone:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .milestone-content {
+            width: 45%;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #ddd;
+            position: relative;
+        }
+
+        .milestone:nth-child(odd) .milestone-content {
+            margin-right: 10%;
+        }
+
+        .milestone:nth-child(even) .milestone-content {
+            margin-left: 10%;
+        }
+
+        .milestone-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .week-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .milestone-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #0984e3;
+            margin-bottom: 8px;
+        }
+
+        .milestone-description {
+            color: #636e72;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+
+        .age-indicator {
+            background: #fd79a8;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* Renkli ikon arka planları */
+        .icon-1 { background: linear-gradient(135deg, #ff7675, #e17055); }
+        .icon-2 { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .icon-3 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .icon-4 { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+        .icon-5 { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .icon-6 { background: linear-gradient(135deg, #00b894, #00a085); }
+        .icon-7 { background: linear-gradient(135deg, #55a3ff, #74b9ff); }
+        .icon-8 { background: linear-gradient(135deg, #ff9ff3, #fd79a8); }
+        .icon-9 { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
+        .icon-10 { background: linear-gradient(135deg, #81ecec, #00cec9); }
+        .icon-11 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .icon-12 { background: linear-gradient(135deg, #ff7675, #e17055); }
+        .icon-13 { background: linear-gradient(135deg, #00b894, #00a085); }
+        .icon-14 { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+        .icon-15 { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .icon-16 { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .icon-17 { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
+        .icon-18 { background: linear-gradient(135deg, #81ecec, #00cec9); }
+        .icon-19 { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .icon-20 { background: linear-gradient(135deg, #ff7675, #e17055); }
+        .icon-21 { background: linear-gradient(135deg, #00b894, #00a085); }
+        .icon-22 { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+        .icon-23 { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .icon-24 { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+
+        .footer {
+            background: #f8f9fa;
+            text-align: center;
+            padding: 30px;
+            color: #636e72;
+            border-top: 3px solid #ddd;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            html, body {
+                height: auto !important;
+                overflow: visible !important;
+                background: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            
+            .header {
+                padding: 15px !important;
+                page-break-after: avoid;
+            }
+            
+            .timeline {
+                padding: 15px 10px !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            
+            .timeline::before {
+                position: absolute !important;
+                height: 100% !important;
+            }
+            
+            .milestone {
+                margin-bottom: 15px !important;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                height: auto !important;
+            }
+            
+            .milestone-content {
+                padding: 8px !important;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+                border: 1px solid #ccc !important;
+            }
+            
+            .milestone-icon {
+                width: 40px !important;
+                height: 40px !important;
+                font-size: 1.3em !important;
+            }
+            
+            .week-number {
+                font-size: 1.3em !important;
+                margin-bottom: 5px !important;
+            }
+            
+            .milestone-title {
+                font-size: 1.1em !important;
+                margin-bottom: 4px !important;
+            }
+            
+            .milestone-description {
+                font-size: 0.9em !important;
+                line-height: 1.3 !important;
+            }
+            
+            .footer {
+                padding: 10px !important;
+                page-break-before: avoid;
+            }
+            
+            /* Mobil responsive yazdırma */
+            .milestone:nth-child(even) {
+                flex-direction: row-reverse !important;
+            }
+            
+            .milestone:nth-child(odd) .milestone-content {
+                margin-right: 10% !important;
+                margin-left: 0 !important;
+            }
+            
+            .milestone:nth-child(even) .milestone-content {
+                margin-left: 10% !important;
+                margin-right: 0 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .milestone {
+                flex-direction: column;
+                text-align: left;
+            }
+            
+            .milestone:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .milestone-content {
+                width: 90%;
+                margin-left: 60px !important;
+                margin-right: 0 !important;
+            }
+            
+            .milestone-icon {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👶 Can'ın Yolculuğu</h1>
+            <p>0-6 Aylık Dönem · Hafta Hafta Gelişim Rehberi</p>
+        </div>
+
+        <div class="timeline">
+            <!-- 1. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">1. Hafta <span class="age-indicator">0-7 gün</span></div>
+                    <div class="milestone-title">İlk Günler ve Uyum</div>
+                    <div class="milestone-description">
+                        • Yeni dünyaya uyum süreci<br>
+                        • Çoğunlukla uyur (16-20 saat)<br>
+                        • Refleksler aktif: emme, tutma, Moro refleksi<br>
+                        • İlk göz teması kurulmaya başlar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-1">👶</div>
+            </div>
+
+            <!-- 2. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">2. Hafta <span class="age-indicator">8-14 gün</span></div>
+                    <div class="milestone-title">Göbek Kordonu Düşer</div>
+                    <div class="milestone-description">
+                        • Göbek kordonu düşer ve iyileşmeye başlar<br>
+                        • Daha uzun uyanık kalma periyotları<br>
+                        • Sesler çıkarmaya başlar<br>
+                        • Çoğunlukla ağlama ve nefes sesleri
+                    </div>
+                </div>
+                <div class="milestone-icon icon-2">🤱</div>
+            </div>
+
+            <!-- 3. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">3. Hafta <span class="age-indicator">15-21 gün</span></div>
+                    <div class="milestone-title">Daha Aktif Olma</div>
+                    <div class="milestone-description">
+                        • Daha uzun süre uyanık kalır<br>
+                        • Yüzleri takip etmeye başlar<br>
+                        • Karın ağrısı (kolik) başlayabilir<br>
+                        • İlk sosyal etkileşimler artar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-3">👀</div>
+            </div>
+
+            <!-- 4. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">4. Hafta <span class="age-indicator">22-28 gün</span></div>
+                    <div class="milestone-title">İlk Gülümseme ✨</div>
+                    <div class="milestone-description">
+                        • İlk gerçek sosyal gülümseme! ✨<br>
+                        • Anne ve babanın sesini tanımaya başlar<br>
+                        • Başını kısa süre kaldırabilir<br>
+                        • 20-30 cm mesafedeki nesneleri görebilir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-4">😊</div>
+            </div>
+
+            <!-- 5. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">5. Hafta <span class="age-indicator">29-35 gün</span></div>
+                    <div class="milestone-title">Görsel Takip</div>
+                    <div class="milestone-description">
+                        • Hareketli nesneleri gözleriyle takip eder<br>
+                        • Daha fazla mimik ifadesi gösterir<br>
+                        • Boyun kasları güçlenmeye başlar<br>
+                        • Çevre seslerine daha çok tepki verir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-5">👁️</div>
+            </div>
+
+            <!-- 6. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">6. Hafta <span class="age-indicator">36-42 gün</span></div>
+                    <div class="milestone-title">Daha Sosyal Olma</div>
+                    <div class="milestone-description">
+                        • Daha sık gülümser<br>
+                        • Anne ve babayı tanır<br>
+                        • Kolik dönemin zirvesi olabilir<br>
+                        • Uyku düzeni biraz daha belirginleşir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-6">💕</div>
+            </div>
+
+            <!-- 7. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">7. Hafta <span class="age-indicator">43-49 gün</span></div>
+                    <div class="milestone-title">Agulamaya Başlama 🗣️</div>
+                    <div class="milestone-description">
+                        • İlk "aguu", "eee" sesleri çıkarır<br>
+                        • Daha uzun süre uyanık kalır<br>
+                        • Elleriyle oynamaya başlar<br>
+                        • Renkli nesnelere ilgi gösterir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-7">🗨️</div>
+            </div>
+
+            <!-- 8. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">8. Hafta <span class="age-indicator">2 Aylık - İlk Aşılar 💉</span></div>
+                    <div class="milestone-title">İlk Aşılar ve Kontrolller</div>
+                    <div class="milestone-description">
+                        • 2 aylık rutin kontrolü ve ilk aşılar<br>
+                        • DaBT-IPA-Hib, Pnömokok, Rotavirus<br>
+                        • Sosyal gülümseme daha sık<br>
+                        • Başını daha uzun süre tutar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-8">💉</div>
+            </div>
+
+            <!-- 9. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">9. Hafta <span class="age-indicator">2+ Aylık</span></div>
+                    <div class="milestone-title">Boyun Kontrolü</div>
+                    <div class="milestone-description">
+                        • Yüzüstü yatarken başını 45° kaldırır<br>
+                        • Ellerini ağzına götürmeye başlar<br>
+                        • Daha çok agulamaya başlar<br>
+                        • Ses çıkarma çeşitliliği artar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-9">💪</div>
+            </div>
+
+            <!-- 10. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">10. Hafta <span class="age-indicator">2,5 Aylık</span></div>
+                    <div class="milestone-title">Daha Uzun Uyku</div>
+                    <div class="milestone-description">
+                        • Gece daha uzun uyku periyotları (4-6 saat)<br>
+                        • Daha fazla sesli oyunlar<br>
+                        • Elleriyle keşfetmeye başlar<br>
+                        • Gündüz uyanık kalma süreleri uzar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-10">😴</div>
+            </div>
+
+            <!-- 11. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">11. Hafta <span class="age-indicator">2,5+ Aylık</span></div>
+                    <div class="milestone-title">Keşif Başlangıcı</div>
+                    <div class="milestone-description">
+                        • Ellerini birleştirmeye başlar<br>
+                        • Oyuncaklara uzanmaya çalışır<br>
+                        • Daha çeşitli sesler çıkarır<br>
+                        • Kolik belirtileri azalmaya başlar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-11">🤲</div>
+            </div>
+
+            <!-- 12. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">12. Hafta <span class="age-indicator">3 Aylık ✨</span></div>
+                    <div class="milestone-title">3 Aylık Dönüm Noktası</div>
+                    <div class="milestone-description">
+                        • Başını sabit tutar<br>
+                        • Kahkaha atmaya başlar<br>
+                        • Oyuncakları tutmaya çalışır<br>
+                        • Yabancı kişi ayrımı başlar<br>
+                        • Uyku düzeni daha belirgin
+                    </div>
+                </div>
+                <div class="milestone-icon icon-12">🎉</div>
+            </div>
+
+            <!-- 13. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">13. Hafta <span class="age-indicator">3+ Aylık</span></div>
+                    <div class="milestone-title">Oyuncak İlgisi</div>
+                    <div class="milestone-description">
+                        • Oyuncakları tutmaya başlar<br>
+                        • Çıngırak seslerine tepki verir<br>
+                        • Farklı ağlama tonları gelişir<br>
+                        • Destekli otururken başını tutar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-13">🧸</div>
+            </div>
+
+            <!-- 14. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">14. Hafta <span class="age-indicator">3,5 Aylık</span></div>
+                    <div class="milestone-title">El-Göz Koordinasyonu</div>
+                    <div class="milestone-description">
+                        • Gördüğü oyuncağa uzanır ve tutmaya çalışır<br>
+                        • Ellerini sürekli açık tutar<br>
+                        • Sesle oyunlar oynamaya başlar<br>
+                        • Nesneleri daha uzun süre inceler
+                    </div>
+                </div>
+                <div class="milestone-icon icon-14">🎯</div>
+            </div>
+
+            <!-- 15. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">15. Hafta <span class="age-indicator">3,5+ Aylık</span></div>
+                    <div class="milestone-title">Sosyal Oyunlar</div>
+                    <div class="milestone-description">
+                        • "Cucuuu-baa" oyununu sever<br>
+                        • Aynada kendini görmeye ilgi duyar<br>
+                        • Daha uzun süre oyuncaklarla ilgilenir<br>
+                        • Müziğe karşı tepki gösterir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-15">🎭</div>
+            </div>
+
+            <!-- 16. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">16. Hafta <span class="age-indicator">4 Aylık - 2. Aşılar 💉</span></div>
+                    <div class="milestone-title">4 Aylık Kontrolü</div>
+                    <div class="milestone-description">
+                        • 2. doz aşılar<br>
+                        • Yüzüstü yatarken dirseklerle desteğe kalkabilir<br>
+                        • Her şeyi ağzına götürür<br>
+                        • Mama vermeye başlanabilir (doktor önerisiyle)
+                    </div>
+                </div>
+                <div class="milestone-icon icon-16">🍼</div>
+            </div>
+
+            <!-- 17. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">17. Hafta <span class="age-indicator">4+ Aylık</span></div>
+                    <div class="milestone-title">Dönme Hazırlığı</div>
+                    <div class="milestone-description">
+                        • Sırtüstüyken yana dönmeye başlar<br>
+                        • Ayaklarını keşfeder ve tutar<br>
+                        • Baba-mama gibi sesler çıkarmaya başlar<br>
+                        • Daha aktif hareket eder
+                    </div>
+                </div>
+                <div class="milestone-icon icon-17">🔄</div>
+            </div>
+
+            <!-- 18. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">18. Hafta <span class="age-indicator">4,5 Aylık</span></div>
+                    <div class="milestone-title">Daha Aktif Hareket</div>
+                    <div class="milestone-description">
+                        • Yardımla otururken başını sabit tutar<br>
+                        • Oyuncakları bir elden diğerine geçirir<br>
+                        • İlk dişlerin çıkma belirtileri başlayabilir<br>
+                        • Salyası artar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-18">🪑</div>
+            </div>
+
+            <!-- 19. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">19. Hafta <span class="age-indicator">4,5+ Aylık</span></div>
+                    <div class="milestone-title">Ses Taklit Etme</div>
+                    <div class="milestone-description">
+                        • Duyduğu sesleri taklit etmeye çalışır<br>
+                        • Kendi adını duyduğunda tepki verir<br>
+                        • Çevresiyle daha çok etkileşim kurar<br>
+                        • Farklı tonlarda sesler çıkarır
+                    </div>
+                </div>
+                <div class="milestone-icon icon-19">🎵</div>
+            </div>
+
+            <!-- 20. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">20. Hafta <span class="age-indicator">5 Aylık</span></div>
+                    <div class="milestone-title">Kendi Ayaklarını Keşif</div>
+                    <div class="milestone-description">
+                        • Ayaklarını tutar ve ağzına götürür<br>
+                        • Sırtüstünden yana tam dönebilir<br>
+                        • Farklı tonlarda ağlamaya başlar<br>
+                        • Vücut koordinasyonu gelişir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-20">🦶</div>
+            </div>
+
+            <!-- 21. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">21. Hafta <span class="age-indicator">5+ Aylık</span></div>
+                    <div class="milestone-title">Nesnelere Uzanma</div>
+                    <div class="milestone-description">
+                        • Uzaktaki nesnelere uzanır ve tutmaya çalışır<br>
+                        • Düşen oyuncağın arkasından bakar<br>
+                        • İlk katı gıda denemelerine başlanabilir<br>
+                        • Neden-sonuç ilişkisi kurmaya başlar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-21">🤚</div>
+            </div>
+
+            <!-- 22. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">22. Hafta <span class="age-indicator">5,5 Aylık</span></div>
+                    <div class="milestone-title">Daha Uzun Dikkat</div>
+                    <div class="milestone-description">
+                        • Oyuncaklarla daha uzun süre ilgilenir<br>
+                        • İki eliyle birden nesne tutar<br>
+                        • "Mamamama" "bababa" seslerini daha sık çıkarır<br>
+                        • Konsantrasyonu artar
+                    </div>
+                </div>
+                <div class="milestone-icon icon-22">🎲</div>
+            </div>
+
+            <!-- 23. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">23. Hafta <span class="age-indicator">5,5+ Aylık</span></div>
+                    <div class="milestone-title">Oturma Hazırlığı</div>
+                    <div class="milestone-description">
+                        • Destekli oturma süresi uzar<br>
+                        • Yanyana dönme hareketiyle hareket etmeye başlar<br>
+                        • Yabancı kişilere karşı çekingen davranabilir<br>
+                        • Daha kompleks hareketler yapabilir
+                    </div>
+                </div>
+                <div class="milestone-icon icon-23">💺</div>
+            </div>
+
+            <!-- 24. Hafta -->
+            <div class="milestone">
+                <div class="milestone-content">
+                    <div class="week-number">24. Hafta <span class="age-indicator">6 Aylık - Büyük Dönüm Noktası! 🎉</span></div>
+                    <div class="milestone-title">6 Aylık Başarıları</div>
+                    <div class="milestone-description">
+                        • Desteksiz kısa süre oturabilir<br>
+                        • İlk diş çıkabilir<br>
+                        • Katı gıdalar başlar<br>
+                        • Oyuncakları iki el arasında geçirir<br>
+                        • İsmiyle çağrıldığında döner<br>
+                        • Daha kompleks sesler çıkarır
+                    </div>
+                </div>
+                <div class="milestone-icon icon-24">🏆</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>👨‍⚕️ Önemli Hatırlatma:</strong> Bu gelişim tablosu genel bir rehberdir.</p>
+            <p>Her bebek kendine özgü gelişir. Endişeleriniz için mutlaka çocuk doktorunuza danışın.</p>
+            <p><em>❤️ Can'ın gelişim yolculuğunda her an değerlidir. Keyfini çıkarın!</em></p>
+        </div>
+    </div>
+</body>
+</html>
+                
